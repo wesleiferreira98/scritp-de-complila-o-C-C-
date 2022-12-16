@@ -61,10 +61,12 @@ def compile_and_run():
     if not os.path.exists(program_name):
         QMessageBox.warning(None, "Error", "File does not exist")
         return
+    
+    program_exec,exetn = program_name.split(".")
 
     # Exclui o arquivo caso exista
-    if os.path.exists(program_name):
-        os.remove(program_name)
+    if os.path.exists(program_exec):
+        os.remove(program_exec)
 
     # Compila o programa
     result = subprocess.run(["g++", program_name + ".cpp", "-o", program_name])
