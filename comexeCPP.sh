@@ -1,4 +1,5 @@
 #! /bin/bash
+cd "/home/$USER/Documentos/CPP"
 comexe(){
 	g++ "$prog".cpp -o"$prog"
 
