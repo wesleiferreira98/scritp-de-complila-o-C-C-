@@ -11,6 +11,48 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+# Expandir o caractere '~' para o caminho absoluto do diretório inicial
+cpp_dir = os.path.expanduser("~/Documentos/Linguagens/CPP")
+
+# Alterar o diretório de trabalho atual para o diretório CPP
+os.chdir(cpp_dir)
+def compile_and_run():
+    
+
+    # Obtém o nome do programa digitado pelo usuário
+    program_name = program_name_field.text()
+
+    # Verifica se o usuário digitou o nome do programa
+    if not program_name:
+        QMessageBox.warning(None, "Error", "O nome do programa não foi informado")
+        return
+
+    # Verifica se o arquivo existe
+    if not os.path.exists(program_name):
+        QMessageBox.warning(None, "Error", "Arquivo não existem")
+        return
+    
+    program_exec, exetn = program_name.split(".")
+
+    # Exclui o arquivo caso exista
+    if os.path.exists(program_exec):
+        os.remove(program_exec)
+
+    # Compila o programa
+    result = subprocess.run(["g++", program_name, "-o", program_exec])
+
+    # Verifica se ocorreu um erro ao compilar o programa
+    if result.returncode != 0:
+        QMessageBox.warning(None, "Error", "Erro ao compilar o codigo")
+        return
+
+        # obtem a caminho absoluto do arquivo 
+    program_path = os.path.abspath(program_exec)
+
+    # Execute the program
+    subprocess.run([program_path])
+
+
 
 # Cria a aplicação
 app = QApplication([])
@@ -42,39 +84,10 @@ layout.addWidget(select_file_button)
 layout.addWidget(compile_and_run_button)
 window.setLayout(layout)
 
+window.setFixedSize(400, 300)
 # Mostra a janela
 window.show()
 
 # Executa a aplicação
 app.exec_()
 
-def compile_and_run():
-    # Obtém o nome do programa digitado pelo usuário
-    program_name = program_name_field.text()
-
-    # Verifica se o usuário digitou o nome do programa
-    if not program_name:
-        QMessageBox.warning(None, "Error", "No program name provided")
-        return
-
-    # Verifica se o arquivo existe
-    if not os.path.exists(program_name):
-        QMessageBox.warning(None, "Error", "File does not exist")
-        return
-    
-    program_exec,exetn = program_name.split(".")
-
-    # Exclui o arquivo caso exista
-    if os.path.exists(program_exec):
-        os.remove(program_exec)
-
-    # Compila o programa
-    result = subprocess.run(["g++", program_name + ".cpp", "-o", program_name])
-
-    # Verifica se ocorreu um erro ao compilar o programa
-    if result.returncode != 0:
-        QMessageBox.warning(None, "Error", "Error compiling program")
-        return
-
-    # Executa o programa
-    subprocess.run(["./" + program_name])
