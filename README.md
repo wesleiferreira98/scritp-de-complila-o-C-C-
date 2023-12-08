@@ -1,2 +1,2 @@
 # scritp-de-complila-o-C-C-
-Modifique o código como desejar  / Modify the code as desired
+Este script Bash tem como objetivo compilar e executar programas C++ a partir do terminal. Ele inclui funções para compilar o código-fonte e executar o programa resultante, além de loops para lidar com casos em que o usuário fornece nomes de arquivos incorretos ou quando há erros na compilação. Certifique-se de ajustar conforme necessário para atender às suas preferências ou requisitos específicos.
